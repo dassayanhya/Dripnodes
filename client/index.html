@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DripNodes | Premium Minecraft Hosting</title>
+    <meta name="description" content="High-performance Minecraft server hosting with instant setup, DDoS protection, and 99.9% uptime.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Inter', 'sans-serif'] },
+            colors: {
+              drip: {
+                bg: '#030308',
+                surface: '#0a0a12',
+                surfaceLight: '#12121c',
+                cyan: '#00f0ff',
+                purple: '#b829dd',
+                emerald: '#00ff9d',
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'glow': 'glow 2s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              glow: {
+                'from': { boxShadow: '0 0 20px rgba(0, 240, 255, 0.2)' },
+                'to': { boxShadow: '0 0 40px rgba(0, 240, 255, 0.4), 0 0 60px rgba(184, 41, 221, 0.2)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body class="antialiased selection:bg-drip-cyan selection:text-black">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

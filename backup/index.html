@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DripNodes | Premium Minecraft Hosting</title>
+    <meta name="description" content="High-performance Minecraft server hosting with instant setup, DDoS protection, and 99.9% uptime.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        drip: {
+                            bg: '#030308',
+                            surface: '#0a0a12',
+                            surfaceLight: '#12121c',
+                            cyan: '#00f0ff',
+                            purple: '#b829dd',
+                            emerald: '#00ff9d',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            'from': { boxShadow: '0 0 20px rgba(0, 240, 255, 0.2)' },
+                            'to': { boxShadow: '0 0 40px rgba(0, 240, 255, 0.4), 0 0 60px rgba(184, 41, 221, 0.2)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    
+</head>
+<body class="antialiased selection:bg-drip-cyan selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-strong transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-drip-cyan to-drip-purple flex items-center justify-center glow-cyan">
+                        <i data-lucide="hexagon" class="w-6 h-6 text-black"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight text-white">Drip<span class="text-drip-cyan">Nodes</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Features</a>
+                    <a href="#pricing" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Pricing</a>
+                    <a href="#why-us" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Why Us</a>
+                    <a href="#dashboard" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Dashboard</a>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Sign In</a>
+                    <a href="#pricing" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-drip-cyan to-blue-500 text-black font-semibold text-sm hover:opacity-90 transition-opacity glow-cyan">
+                        Get Started
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-strong border-t border-white/5">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#features" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">Features</a>
+                <a href="#pricing" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">Pricing</a>
+                <a href="#why-us" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">Why Us</a>
+                <a href="#dashboard" class="block px-3 py-2 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">Dashboard</a>
+                <div class="pt-4 flex flex-col space-y-3">
+                    <a href="#" class="text-center px-3 py-2 text-base font-medium text-slate-300 hover:text-white">Sign In</a>
+                    <a href="#pricing" class="text-center px-3 py-2 rounded-lg bg-gradient-to-r from-drip-cyan to-blue-500 text-black font-semibold">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Canvas Background -->
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full opacity-30"></canvas>
+        
+        <!-- Gradient Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-drip-cyan/20 rounded-full blur-[128px] animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-drip-purple/20 rounded-full blur-[128px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+        
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 grid-pattern opacity-50"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center px-4 py-2 rounded-full glass mb-8 border border-drip-cyan/20 animate-float">
+                <span class="flex h-2 w-2 rounded-full bg-drip-emerald mr-2 animate-pulse"></span>
+                <span class="text-sm font-medium text-slate-300">Now serving 10,000+ servers worldwide</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 reveal">
+                <span class="text-gradient-subtle">Host Without</span><br>
+                <span class="text-gradient">Limits</span>
+            </h1>
+            
+            <p class="mt-6 text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed reveal" style="transition-delay: 100ms;">
+                Premium Minecraft infrastructure built for speed. Experience lag-free gameplay with enterprise-grade hardware and instant deployment.
+            </p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 reveal" style="transition-delay: 200ms;">
+                <a href="#pricing" class="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-drip-cyan to-blue-500 text-black font-bold text-lg hover:opacity-90 transition-all glow-cyan flex items-center">
+                    Deploy Server
+                    <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#features" class="px-8 py-4 rounded-xl glass text-white font-semibold text-lg hover:bg-white/10 transition-all flex items-center border border-white/10">
+                    View Plans
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto reveal" style="transition-delay: 300ms;">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white mb-1">99.99%</div>
+                    <div class="text-sm text-slate-500 uppercase tracking-wider">Uptime SLA</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white mb-1">&lt;15ms</div>
+                    <div class="text-sm text-slate-500 uppercase tracking-wider">Latency</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white mb-1">24/7</div>
+                    <div class="text-sm text-slate-500 uppercase tracking-wider">Support</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white mb-1">12</div>
+                    <div class="text-sm text-slate-500 uppercase tracking-wider">Global Locations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Built for <span class="text-drip-cyan">Performance</span></h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">Enterprise-grade infrastructure optimized specifically for Minecraft servers. No compromises.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal group">
+                    <div class="w-14 h-14 rounded-xl bg-drip-cyan/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-7 h-7 text-drip-cyan"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">High-Performance Nodes</h3>
+                    <p class="text-slate-400 leading-relaxed">AMD Ryzen 9 7950X processors with NVMe SSDs. DDR5 memory for blazing fast chunk loading and world generation.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal group" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-xl bg-drip-purple/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield" class="w-7 h-7 text-drip-purple"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">DDoS Protection</h3>
+                    <p class="text-slate-400 leading-relaxed">Advanced L7 DDoS mitigation with automatic threat detection. Your server stays online during attacks up to 1Tbps.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal group" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-xl bg-drip-emerald/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="w-7 h-7 text-drip-emerald"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Instant Setup</h3>
+                    <p class="text-slate-400 leading-relaxed">Deploy your server in seconds. Automated provisioning with pre-configured optimizations for Paper, Fabric, and Forge.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal group">
+                    <div class="w-14 h-14 rounded-xl bg-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="puzzle" class="w-7 h-7 text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Mod & Plugin Support</h3>
+                    <p class="text-slate-400 leading-relaxed">One-click installer for 50,000+ mods and plugins. Auto-updates, dependency resolution, and version management.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal group" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="globe" class="w-7 h-7 text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Global Network</h3>
+                    <p class="text-slate-400 leading-relaxed">Strategic locations in NA, EU, Asia, and Oceania. Premium bandwidth with low-latency routing to major ISPs.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal group" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-xl bg-pink-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="database" class="w-7 h-7 text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Automated Backups</h3>
+                    <p class="text-slate-400 leading-relaxed">Hourly incremental backups with 30-day retention. One-click restore points and off-site redundancy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-drip-surfaceLight to-drip-bg"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Transparent <span class="text-gradient">Pricing</span></h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">No hidden fees. No arbitrary player limits. Pay for the resources you need.</p>
+                
+                <!-- Billing Toggle -->
+                <div class="inline-flex items-center p-1 rounded-xl glass">
+                    <button id="monthly-btn" class="pricing-toggle active px-6 py-2 rounded-lg text-sm font-medium transition-all" onclick="togglePricing('monthly')">Monthly</button>
+                    <button id="yearly-btn" class="pricing-toggle px-6 py-2 rounded-lg text-sm font-medium text-slate-400 transition-all" onclick="togglePricing('yearly')">Yearly <span class="text-drip-emerald text-xs ml-1">-20%</span></button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Starter -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal border border-white/5">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-slate-300 mb-2">Starter</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-bold text-white price-monthly">$8</span>
+                            <span class="text-4xl font-bold text-white price-yearly hidden">$76</span>
+                            <span class="text-slate-500">/mo</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-2">Perfect for small SMPs</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            4 GB DDR5 RAM
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            2 vCPU Cores (Ryzen 9)
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            20 GB NVMe Storage
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Unlimited Players
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Standard Support
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full py-3 rounded-lg border border-white/10 text-white font-semibold hover:bg-white/5 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+                
+                <!-- Pro (Popular) -->
+                <div class="relative glass rounded-2xl p-8 hover-lift reveal border border-drip-cyan/30 glow-cyan transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="px-4 py-1 rounded-full bg-gradient-to-r from-drip-cyan to-blue-500 text-black text-xs font-bold uppercase tracking-wider">
+                            Most Popular
+                        </span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-drip-cyan mb-2">Pro</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-bold text-white price-monthly">$16</span>
+                            <span class="text-4xl font-bold text-white price-yearly hidden">$153</span>
+                            <span class="text-slate-500">/mo</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-2">For growing communities</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            8 GB DDR5 RAM
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            4 vCPU Cores (Ryzen 9)
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            50 GB NVMe Storage
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Unlimited Players
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Priority Support
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Free Dedicated IP
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full py-3 rounded-lg bg-gradient-to-r from-drip-cyan to-blue-500 text-black font-bold hover:opacity-90 transition-opacity">
+                        Get Started
+                    </button>
+                </div>
+                
+                <!-- Enterprise -->
+                <div class="glass rounded-2xl p-8 hover-lift reveal border border-white/5">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-slate-300 mb-2">Enterprise</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-bold text-white price-monthly">$32</span>
+                            <span class="text-4xl font-bold text-white price-yearly hidden">$307</span>
+                            <span class="text-slate-500">/mo</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-2">Maximum performance</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            16 GB DDR5 RAM
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            8 vCPU Cores (Ryzen 9)
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            100 GB NVMe Storage
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Unlimited Players
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            24/7 Dedicated Support
+                        </li>
+                        <li class="flex items-center text-slate-300 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-drip-cyan mr-3 flex-shrink-0"></i>
+                            Custom JAR Support
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full py-3 rounded-lg border border-white/10 text-white font-semibold hover:bg-white/5 transition-colors">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why DripNodes Section -->
+    <section id="why-us" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Why server owners choose <span class="text-drip-cyan">DripNodes</span></h2>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        We're builders too. We understand that downtime kills communities and lag ruins gameplay. That's why we've engineered every aspect of our platform for reliability.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-drip-cyan/10 flex items-center justify-center mr-4">
+                                <i data-lucide="heart-handshake" class="w-6 h-6 text-drip-cyan"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Community First</h4>
+                                <p class="text-slate-400">Built by Minecraft players, for Minecraft players. We actually play the game.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-drip-purple/10 flex items-center justify-center mr-4">
+                                <i data-lucide="gauge" class="w-6 h-6 text-drip-purple"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Obsessive Optimization</h4>
+                                <p class="text-slate-400">Custom kernel tweaks and JVM flags fine-tuned for Minecraft's unique workload.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-drip-emerald/10 flex items-center justify-center mr-4">
+                                <i data-lucide="headphones" class="w-6 h-6 text-drip-emerald"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Real Human Support</h4>
+                                <p class="text-slate-400">Average response time under 5 minutes. No ticket robots, no canned responses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal" style="transition-delay: 200ms;">
+                    <div class="absolute inset-0 bg-gradient-to-r from-drip-cyan/20 to-drip-purple/20 rounded-3xl blur-3xl"></div>
+                    <div class="relative glass rounded-2xl p-8 border border-white/10">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono">server-status.log</span>
+                        </div>
+                        
+                        <div class="space-y-3 font-mono text-sm">
+                            <div class="terminal-line pl-4 py-2">
+                                <span class="text-drip-cyan">[System]</span> <span class="text-slate-300">Allocating resources...</span>
+                            </div>
+                            <div class="pl-4 py-2">
+                                <span class="text-green-400">[OK]</span> <span class="text-slate-400">64GB DDR5 initialized</span>
+                            </div>
+                            <div class="pl-4 py-2">
+                                <span class="text-green-400">[OK]</span> <span class="text-slate-400">NVMe RAID mounted</span>
+                            </div>
+                            <div class="pl-4 py-2">
+                                <span class="text-green-400">[OK]</span> <span class="text-slate-400">Network interfaces up (10Gbps)</span>
+                            </div>
+                            <div class="pl-4 py-2">
+                                <span class="text-drip-purple">[Game]</span> <span class="text-slate-300">Starting Paper 1.20.4...</span>
+                            </div>
+                            <div class="pl-4 py-2">
+                                <span class="text-drip-purple">[Game]</span> <span class="text-slate-300">Loaded 1432 chunks in 120ms</span>
+                            </div>
+                            <div class="terminal-line pl-4 py-2 mt-4">
+                                <span class="text-drip-cyan animate-pulse">➜</span> <span class="text-white">Server online • TPS 20.0 • 47 players</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-center">
+                            <div>
+                                <div class="text-2xl font-bold text-white">20.0</div>
+                                <div class="text-xs text-slate-500 uppercase">TPS</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-drip-emerald">12ms</div>
+                                <div class="text-xs text-slate-500 uppercase">Ping</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-drip-cyan">0%</div>
+                                <div class="text-xs text-slate-500 uppercase">Packet Loss</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview Section -->
+    <section id="dashboard" class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-drip-surface"></div>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-drip-cyan/50 to-transparent"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Powerful <span class="text-gradient">Control</span></h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">Manage your server with our intuitive, lightning-fast control panel.</p>
+            </div>
+            
+            <div class="relative reveal">
+                <div class="absolute -inset-1 bg-gradient-to-r from-drip-cyan to-drip-purple rounded-2xl blur opacity-30"></div>
+                <div class="relative glass rounded-xl overflow-hidden border border-white/10">
+                    <!-- Mock Browser Header -->
+                    <div class="bg-drip-surfaceLight px-4 py-3 flex items-center space-x-4 border-b border-white/5">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+                        </div>
+                        <div class="flex-1 bg-black/30 rounded-md px-4 py-1.5 text-sm text-slate-400 flex items-center justify-center font-mono">
+                            <i data-lucide="lock" class="w-3 h-3 mr-2"></i>
+                            panel.dripnodes.com/server/smp-main
+                        </div>
+                    </div>
+                    
+                    <!-- Mock Dashboard -->
+                    <div class="bg-drip-bg p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <!-- Sidebar -->
+                        <div class="hidden lg:block space-y-2">
+                            <div class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-white/5 text-white">
+                                <i data-lucide="layout-dashboard" class="w-5 h-5 text-drip-cyan"></i>
+                                <span class="font-medium">Overview</span>
+                            </div>
+                            <div class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors cursor-pointer">
+                                <i data-lucide="terminal" class="w-5 h-5"></i>
+                                <span>Console</span>
+                            </div>
+                            <div class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors cursor-pointer">
+                                <i data-lucide="folder" class="w-5 h-5"></i>
+                                <span>Files</span>
+                            </div>
+                            <div class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors cursor-pointer">
+                                <i data-lucide="database" class="w-5 h-5"></i>
+                                <span>Databases</span>
+                            </div>
+                            <div class="flex items-center space-x-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-colors cursor-pointer">
+                                <i data-lucide="settings" class="w-5 h-5"></i>
+                                <span>Settings</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Content -->
+                        <div class="lg:col-span-3 space-y-6">
+                            <!-- Stats Row -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="glass rounded-lg p-4 border border-white/5">
+                                    <div class="text-slate-400 text-sm mb-1">CPU Usage</div>
+                                    <div class="flex items-end justify-between">
+                                        <span class="text-2xl font-bold text-white">24%</span>
+                                        <div class="h-8 w-24 bg-drip-cyan/20 rounded overflow-hidden relative">
+                                            <div class="absolute bottom-0 left-0 w-full h-1/4 bg-drip-cyan"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="glass rounded-lg p-4 border border-white/5">
+                                    <div class="text-slate-400 text-sm mb-1">Memory</div>
+                                    <div class="flex items-end justify-between">
+                                        <span class="text-2xl font-bold text-white">4.2 GB</span>
+                                        <div class="h-8 w-24 bg-drip-purple/20 rounded overflow-hidden relative">
+                                            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-drip-purple"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="glass rounded-lg p-4 border border-white/5">
+                                    <div class="text-slate-400 text-sm mb-1">Players Online</div>
+                                    <div class="flex items-end justify-between">
+                                        <span class="text-2xl font-bold text-white">47/100</span>
+                                        <div class="h-8 w-24 bg-drip-emerald/20 rounded overflow-hidden relative">
+                                            <div class="absolute bottom-0 left-0 w-3/4 h-full bg-drip-emerald"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Console -->
+                            <div class="glass rounded-lg p-4 border border-white/5 font-mono text-sm h-64 overflow-hidden relative">
+                                <div class="absolute top-4 right-4 flex space-x-2">
+                                    <button class="px-3 py-1 rounded bg-red-500/20 text-red-400 text-xs border border-red-500/30 hover:bg-red-500/30 transition-colors">Stop</button>
+                                    <button class="px-3 py-1 rounded bg-green-500/20 text-green-400 text-xs border border-green-500/30 hover:bg-green-500/30 transition-colors">Restart</button>
+                                </div>
+                                <div class="space-y-1 text-slate-300 mt-8">
+                                    <p><span class="text-slate-500">[14:23:01]</span> <span class="text-green-400">INFO</span>: Preparing level "world"</p>
+                                    <p><span class="text-slate-500">[14:23:02]</span> <span class="text-green-400">INFO</span>: Preparing start region for dimension minecraft:overworld</p>
+                                    <p><span class="text-slate-500">[14:23:04]</span> <span class="text-green-400">INFO</span>: Time elapsed: 1204 ms</p>
+                                    <p><span class="text-slate-500">[14:23:05]</span> <span class="text-green-400">INFO</span>: Done (4.203s)! For help, type "help"</p>
+                                    <p><span class="text-slate-500">[14:25:12]</span> <span class="text-yellow-400">WARN</span>: Can't keep up! Is the server overloaded?</p>
+                                    <p class="text-slate-500 italic">... never with DripNodes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Ready to deploy?</h2>
+            <p class="text-xl text-slate-400 mb-10">Join thousands of server owners who trust DripNodes with their communities.</p>
+            <a href="#pricing" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-drip-cyan to-drip-purple text-white font-bold text-lg hover:opacity-90 transition-all glow-cyan animate-glow">
+                Start Your Server Now
+                <i data-lucide="rocket" class="ml-2 w-5 h-5"></i>
+            </a>
+            <p class="mt-6 text-sm text-slate-500">24-hour money-back guarantee • Instant setup • No credit card required</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-drip-surface pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-drip-cyan to-drip-purple flex items-center justify-center">
+                            <i data-lucide="hexagon" class="w-5 h-5 text-black"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">Drip<span class="text-drip-cyan">Nodes</span></span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Premium Minecraft hosting infrastructure designed for performance, reliability, and scale.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Product -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Product</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#features" class="hover:text-drip-cyan transition-colors">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-drip-cyan transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Locations</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Status Page</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Resources</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">API Reference</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Community</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Support</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">Discord</a></li>
+                        <li><a href="#" class="hover:text-drip-cyan transition-colors">System Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <p class="text-slate-500 text-sm">© 2024 DripNodes. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm text-slate-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
