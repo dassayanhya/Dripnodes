@@ -450,7 +450,7 @@ export default function Home() {
             <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">No hidden fees. Pay for the resources you need.</p>
             <div ref={wrapRef} className="relative inline-flex items-center p-1 rounded-xl glass overflow-hidden gap-1">
               <div
-                className="absolute top-0 left-0 h-full rounded-lg bg-gradient-to-r from-drip-cyan to-blue-500 transition-transform duration-300"
+                className="absolute top-0 left-0 h-full rounded-lg bg-gradient-to-r from-drip-cyan to-blue-500 transition-all duration-300"
                 style={{ transform: `translateX(${indicatorX}px)`, width: indicatorW }}
               />
               <button ref={mcRef} onClick={()=>switchProduct('minecraft')} className={`pricing-toggle relative z-10 inline-flex items-center justify-center w-40 px-6 py-2 rounded-lg text-sm font-medium transition-all ${product==='minecraft' ? 'active text-black font-semibold' : 'text-slate-400'}`}>
@@ -463,7 +463,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`} key={product}>
+          <div className={`grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-8 max-w-6xl mx-auto items-stretch transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`} key={product}>
             {(product==='minecraft'
               ? [
                   {name:'Starter', price:'₹199', features:['4 GB DDR5 RAM','2 vCPU Cores (Ryzen 9)','20 GB NVMe Storage','Unlimited Players','Standard Support'], cta:'Get Started', highlight:false},
@@ -476,7 +476,7 @@ export default function Home() {
                   {name:'Bot Plus', price:'₹399', features:['8 GB RAM','Dedicated vCore','60 GB NVMe','Daily Backups','DDoS Protection'], cta:'Get Started', highlight:false},
                 ]
             ).map(plan => (
-              <div key={plan.name} className={`glass rounded-2xl p-8 hover-lift reveal active border h-full flex flex-col ${plan.highlight ? 'border-drip-cyan/30 glow-cyan transform md:-translate-y-4 relative' : 'border-white/5'}`}>
+              <div key={plan.name} className={`glass rounded-2xl p-8 hover-lift reveal active border h-full flex flex-col ${plan.highlight ? 'border-drip-cyan/30 glow-cyan relative' : 'border-white/5'}`}>
                 {plan.highlight && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                     <span className="px-4 py-1 rounded-full bg-gradient-to-r from-drip-cyan to-blue-500 text-black text-xs font-bold uppercase tracking-wider">
@@ -500,7 +500,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link to="/pricing" className={`w-full py-3 rounded-lg mt-auto ${plan.highlight ? 'bg-gradient-to-r from-drip-cyan to-blue-500 text-black font-bold hover:opacity-90 transition-opacity' : 'border border-white/10 text-white font-semibold hover:bg-white/5 transition-colors'}`}>
+                <Link to="/pricing" className={`w-full py-3 rounded-lg mt-auto text-center ${plan.highlight ? 'bg-gradient-to-r from-drip-cyan to-blue-500 text-black font-bold hover:opacity-90 transition-opacity' : 'border border-white/10 text-white font-semibold hover:bg-white/5 transition-colors'}`}>
                   {plan.cta}
                 </Link>
               </div>
